@@ -3,3 +3,15 @@
     src: url(/fonts/augiepixel.ttf) format('truetype');
     font-display: swap;
 }
+:root{
+    color-scheme:dark;
+    --ink:#ebe8f0;
+    --soft:#a8a3b3;
+    --salmon:#df9a9a;
+    --frame:#3a3743;
+    --c1:#d98f95;
+    --c2:#c9a58c;
+    --c3:#8fc3a0;
+    --c4:#92a4d6;
+    --c5:#b49bd6;
+}

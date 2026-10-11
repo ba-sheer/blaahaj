@@ -7,6 +7,9 @@
     import {PLUSH_URL} from "./lib/assets.js";
 
     let plushOk = $state(true);
+    let count = $state(0);
+    let message = $state('');
+    let petBtn;
 </script>
 <header></header>
 <main></main>
