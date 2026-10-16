@@ -10,7 +10,17 @@
     let count = $state(0);
     let message = $state('');
     let petBtn;
+
+    function pet(){
+        count++;
+        message = cuddleMessage(count);
+        petBtn.classList.remove('hit');
+        void petBtn.offsetWidth;
+        petBtn.classList.add('hit');
+    }
 </script>
-<header></header>
+<header class="hero">
+    <Shark3D autoSpin class="hero-shark"/>
+</header>
 <main></main>
 <footer></footer>
