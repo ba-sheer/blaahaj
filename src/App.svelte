@@ -66,4 +66,11 @@
         <p id="count" aria-live="polite">cuddles: {count}{message ? ' · ' + message : ''}</p>
     </section>
 </main>
-<footer></footer>
+<footer>
+  <p class="made">made with <span class="salmon">&lt;3</span> for sharks</p>
+  <p class="nav">
+    <span style="color:var(--c1)">the deep</span><span style="color:var(--c2)">the aisle</span><span style="color:var(--c3)">the internet</span><span style="color:var(--c4)">comfort</span><span style="color:var(--c5)">restock</span>
+  </p>
+  <p class="ghost">be soft, be a shark</p>
+  <p class="small">font by augie (hack club) · shark art from jame gam · unofficial fan project, not affiliated with IKEA</p>
+</footer>
