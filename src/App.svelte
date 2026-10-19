@@ -5,7 +5,6 @@
     import {chapters,facts} from "./lib/chapters.js";
     import {cuddleMessage} from "./lib/cuddles.js";
     import {PLUSH_URL} from "./lib/assets.js";
-	import { color } from "three/src/nodes/tsl/TSLCore.js";
 
     let plushOk = $state(true);
     let count = $state(0);
@@ -38,7 +37,7 @@
     <h2 id="lore">the lore</h2>
     {#each chapters as ch}
         <article class="ch rv" use:reveal>
-            <div class="pol" style="--r:{ch,r}">
+            <div class="pol" style="--r:{ch.r}">
                 <div class="scene {ch.scene}">
                     {#each ch.starks as s}
                         <StaticShark rx{s.rx} ry={s.ry} class={s.cls ??''}/>
@@ -58,6 +57,7 @@
         {#each facts as f}
             <div style="--c:{f.c};--r:{f.r}"><b>{f.b}</b>{f.t}</div>
         {/each}
+        </section>
         <section class="petbox rv" use:reveal>
         <h2>go on, pet the shark</h2>
         <button id="pet" aria-label="pet the shark" bind:this={petBtn} onclick={pet}>

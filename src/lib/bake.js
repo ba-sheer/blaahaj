@@ -1,12 +1,11 @@
 import { createSharkScene,BACKING,PRIZE_POSE } from "./shark-scene";
 import { GLB_URL } from "./assets";
-import { Scene } from "three";
 
 let scenePromise = null;
 const cache = new Map();
 
 function getScene(){
-    scenePromise ?? (async()=>
+    scenePromise ??= (async()=>
     {
         const canvas = document.createElement('canvas');
         const scene = createSharkScene({

@@ -2,7 +2,6 @@
     import {onMount, settled} from 'svelte';
     import {createSharkScene,BACKING,PRIZE_POSE} from './shark-scene.js';
     import{GLB_URL,POSTER_URL} from './assets.js';
-	import { highpModelNormalViewMatrix } from 'three/src/nodes/accessors/ModelNode.js';
 
     let {autoSpin = false,class:klass = ''}=$props();
 
@@ -27,10 +26,10 @@
             if(now - last < FRAME) return;
             const dt = Math.min((now-last)/1000, 0.05);
             last = now;
-            if(!always || hovering)vy = SPIN;else vy *= Math.exp(-3 * dt);
+            if(always || hovering)vy = SPIN;else vy *= Math.exp(-3 * dt);
             scene.state.ry += vy*dt;
             scene.render();
-            if(!always&&!hovering && Math.abs(vy)< STOP) settled();
+            if(!always&&!hovering && Math.abs(vy)< STOP) settle();
         }
         const start = ()=>{
             if(!raf&& scene){last = performance.now()-FRAME;raf=requestAnimationFrame(loop);}
@@ -71,7 +70,7 @@
                     pose: PRIZE_POSE,preserveDrawingBuffer:true
                 });
             await s.ready;
-            if(disposed){s.disposed(); return;}
+            if(disposed){s.dispose(); return;}
             scene = s;
             scene.render();
             src = canvas.toDataURL('image/png');
@@ -85,24 +84,24 @@
             }
         }
         let loaded = false;
-        const io = new IntersectionObserver((es)=>{
-            visible = es.some((e)=>{
-                visible = es.some((e)=> e.isIntersecting);
-                if (visible &&!loaded){loaded=true;load();}
-                if(always&& scene){
-                    visible ? start():stop();
-                }
-            },{rootMargin:'300px'});
-            io.observe(wrap);
-            return()=>{
-                disposed = true;
-                stop();
-                io.disconnect();
-                wrap.removeEventListener('pointerenter',enter);
-                wrap.removeEventListener('pointerleave',leave);
-                scene?.dispose();
-            };
-        });
+        const io = new IntersectionObserver(
+        (es) => {
+            visible = es.some((e) => e.isIntersecting);
+            if (visible && !loaded) { loaded = true; load(); }
+            if (always && scene) visible ? start() : stop();
+        },
+        { rootMargin: '300px' }
+    );
+    io.observe(wrap);
+    return () => {
+        disposed = true;
+        stop();
+        io.disconnect();
+        wrap.removeEventListener('pointerenter', enter);
+        wrap.removeEventListener('pointerleave', leave);
+        scene?.dispose();
+    };
+     
     });
 </script>
 <span class="shark3d {klass}" class:spin={spinning} bind:this={wrap}>
