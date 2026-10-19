@@ -64,6 +64,48 @@
         };
         wrap.addEventListener('pointerenter',enter);
         wrap.addEventListener('pointerleave',leave);
-        async 
-    })
+        async function load() {
+            try{
+                const s = createSharkScene({
+                    canvas,glbUrl:GLB_URL,backing:{...BACKING},
+                    pose: PRIZE_POSE,preserveDrawingBuffer:true
+                });
+            await s.ready;
+            if(disposed){s.disposed(); return;}
+            scene = s;
+            scene.render();
+            src = canvas.toDataURL('image/png');
+            ready= true;
+            if(always){
+                spinning = true;
+                if(visible) start();
+            }
+            }catch(err){
+                console.warn('[shark] 3d load failed keeping poster',err);
+            }
+        }
+        let loaded = false;
+        const io = new IntersectionObserver((es)=>{
+            visible = es.some((e)=>{
+                visible = es.some((e)=> e.isIntersecting);
+                if (visible &&!loaded){loaded=true;load();}
+                if(always&& scene){
+                    visible ? start():stop();
+                }
+            },{rootMargin:'300px'});
+            io.observe(wrap);
+            return()=>{
+                disposed = true;
+                stop();
+                io.disconnect();
+                wrap.removeEventListener('pointerenter',enter);
+                wrap.removeEventListener('pointerleave',leave);
+                scene?.dispose();
+            };
+        });
+    });
 </script>
+<span class="shark3d {klass}" class:spin={spinning} bind:this={wrap}>
+<img src={src ?? POSTER_URL} alt="" />
+<canvas aria-hidden="true" bind:this={canvas}></canvas>
+</span>
