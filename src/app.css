@@ -26,7 +26,7 @@ body {
 	background: #1e1d23 url(/assets/paper-dark.png);
 	color: var(--ink);
 	font:
-		28px/1.5 augie,
+		28px/1.15 augie,
 		'Courier New',
 		monospace;
 	text-transform: lowercase;
@@ -97,7 +97,7 @@ p {
 }
 .hero h1 {
 	font-size: clamp(60px, 12vw, 112px);
-	line-height: 9;
+	line-height: .9;
 	margin-top: 6px;
 }
 .by {
@@ -108,7 +108,7 @@ p {
 }
 .lead {
 	max-width: 560px;
-	margin: 34px auto;
+	margin: 34px auto 22px;
 	font-size: clamp(26px, 4vw, 34px);
 }
 .tag {
@@ -117,7 +117,7 @@ p {
 }
 .ul {
 	display: inline-block;
-	padding: 14px;
+	padding-bottom: 14px;
 	background: url(/assets/underline550.png) left bottom/100% 12px no-repeat;
 }
 .btn {
@@ -130,6 +130,9 @@ p {
 	font-size: 32px;
 	transition: transform 0.12s steps(2);
 }
+.btn:hover{
+    transform: rotate(-3deg) scale(1.06);
+}
 .note {
 	position: absolute;
 	color: var(--salmon);
@@ -137,8 +140,8 @@ p {
 	line-height: 1;
 	text-align: left;
 	transform: rotate(6deg);
-	left: calc(50%+150px);
-	top: calc(100%-210px);
+	left: calc(50% + 150px);
+	top: calc(100% - 210px);
 }
 .plush {
 	position: absolute;

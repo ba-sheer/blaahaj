@@ -40,8 +40,8 @@
 		<article class="ch rv" use:reveal>
 			<div class="pol" style="--r:{ch.r}">
 				<div class="scene {ch.scene}">
-					{#each ch.starks as s}
-						<StaticShark rx{s.rx} ry={s.ry} class={s.cls ?? ''} />
+					{#each ch.sharks as s}
+						<StaticShark rx={s.rx} ry={s.ry} class={s.cls ?? ''} />
 					{/each}
 				</div>
 			</div>
